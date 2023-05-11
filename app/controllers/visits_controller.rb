@@ -1,34 +1,48 @@
 class VisitsController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
-    rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+
+    before_action :authorize, only: [:create, :update]
+
     def index
-        visits = Visit.all
-        render json: visits
+        if params[:trail_id]
+            trail = Trail.find(params[:trail_id])
+            visits = trail.visits
+        else
+            visits = Visit.all
+        end
+        render json: visits, include: [:trail, :user]
     end
 
     def show
         visit = find_visit
-        render json: visit
+        render json: visit, include: [:trail, :user]
     end
 
     def create
-        user = User.find_by(id: session[:user_id])
-        if user.valid?
-            visit = user.visits.create!(visit_params)
-            render json: visit, status: :created
-        else
-            render json: {error: "Invalid user"}, status: :unauthorized
-        end
+        user = find_user
+        visit = user.visits.create!(visit_params)
+        render json: visit, status: :created
+    end
+
+    def update
+        visit = find_visit
+        visit.update!(visit_params)
+        render json: visit
     end
 
     def destroy
         visit = find_visit
         visit.destroy
-        head :no_content
+        render json: {}
 
     end
 
     private
+
+    def find_user
+        User.find(session[:user_id])
+    end
 
     def find_visit
         Visit.find(params[:id])
@@ -38,11 +52,15 @@ class VisitsController < ApplicationController
         params.permit(:date, :condition, :summary)
     end
 
+    def authorize
+        return render json: {error: "Please login first"}, status: :unauthorized unless session.include? :user_id
+    end
+
     def render_unprocessable_entity_response(exception)
         render json: {errors: exception.record.errors.full_messages}, status: :unprocessable_entity
     end
 
-    def record_not_found
-        render json: { error: "You haven't visited this trail!" }, status: :not_found
+    def render_not_found_response
+        render json: { error: "This visit wasn't found" }, status: :not_found
     end
 end

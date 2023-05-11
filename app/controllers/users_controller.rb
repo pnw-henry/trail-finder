@@ -1,27 +1,28 @@
 class UsersController < ApplicationController
+    rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
-    before_action :authorize, only: {:show}
+    before_action :authorize, only: :show
 
     def create
         user = User.create!(user_params)
-        if user.valid?
-            session[:user_id] = user.id
-            render json: user, status: :created
-        else
-            render json: {error: user.errors.full_messages}, status: :unprocessable_entity
-        end
+        session[:user_id] = user.id
+        render json: user, status: :created
     end
 
      def show
         user = User.find_by(id: session[:user_id])
-        render json: user
+        render json: user, include: :trails
     end
 
     private
 
+    def render_unprocessable_entity_response(exception)
+        render json: {errors: exception.record.errors.full_messages}, status: :unprocessable_entity
+    end
+
     def authorize
-        return render json: {error: "Invalid username or password"}, status: :unauthorized unless session.include? :user_id
+        return render json: {error: "Please login first to view your profile"}, status: :unauthorized unless session.include? :user_id
     end
     
     def render_not_found_response
