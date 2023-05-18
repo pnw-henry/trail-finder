@@ -1,16 +1,18 @@
 import React from "react";
 import TrailCard from "./TrailCard";
-function TrailList({ trails }) {
+function TrailList({ trails, expandedTrailId, onTrailClick }) {
   const trail = trails.map((trail) => {
-    return <TrailCard key={trail.id} trail={trail} />;
+    return (
+      <TrailCard
+        key={trail.id}
+        trail={trail}
+        expandedTrailId={expandedTrailId}
+        onTrailClick={onTrailClick}
+      />
+    );
   });
 
-  return (
-    <div>
-      <h1>Trail List</h1>
-      {trail}
-    </div>
-  );
+  return <div>{trail}</div>;
 }
 
 export default TrailList;

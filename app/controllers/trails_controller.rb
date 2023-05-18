@@ -6,12 +6,11 @@ class TrailsController < ApplicationController
 
     def index
         trails = Trail.all
-        render json: trails
+        render json: trails, include: [:users, :visits]
     end
 
     def create
-        user = User.find_by(id: session[:user_id])
-        trail = user.trails.create!(trail_params)
+        trail = Trail.create!(trail_params)
         render json: trail, status: :created
     end
 

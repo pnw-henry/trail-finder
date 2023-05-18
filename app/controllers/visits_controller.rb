@@ -2,7 +2,7 @@ class VisitsController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
-    before_action :authorize, only: [:create, :update]
+    before_action :authorize, only: [:create, :update, :destroy]
 
     def index
         if params[:trail_id]
@@ -28,7 +28,7 @@ class VisitsController < ApplicationController
     def update
         visit = find_visit
         visit.update!(visit_params)
-        render json: visit
+        render json: visit, include: [:trail, :user]
     end
 
     def destroy
@@ -49,7 +49,7 @@ class VisitsController < ApplicationController
     end
 
     def visit_params
-        params.permit(:date, :condition, :summary)
+        params.permit(:date, :condition, :summary, :trail_id, :user_id)
     end
 
     def authorize

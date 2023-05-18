@@ -2,7 +2,7 @@ class UsersController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
-    before_action :authorize, only: :show
+    before_action :authorize, only: [:show, :destroy]
 
     def create
         user = User.create!(user_params)
@@ -10,9 +10,15 @@ class UsersController < ApplicationController
         render json: user, status: :created
     end
 
-     def show
+    def show
         user = User.find_by(id: session[:user_id])
         render json: user, include: :trails
+    end
+
+    def destroy
+        user = User.find_by(id: session[:user_id])
+        user.destroy
+        render json: {}
     end
 
     private

@@ -11,5 +11,10 @@
     "heroku-postbuild": "npm run clean && npm run build && npm run deploy"
   },
   "dependencies": {
+    "bootstrap": "^5.2.3",
+    "react-bootstrap": "^2.7.4",
+    "react-date-picker": "^10.0.3",
+    "react-datepicker": "^4.11.0",
+    "react-datetime": "^3.2.0"
   }
 }
