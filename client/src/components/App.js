@@ -84,24 +84,28 @@ function App() {
             <button onClick={handleLogout}>Logout</button>
           </div>
         ) : (
-          <div>
+          <div className="login-signup-button">
             <button onClick={toggleSignup}>
               {signUp ? "Login" : "Sign Up"}
             </button>
             {signUp ? (
-              <UserSignUp
-                setUser={setUser}
-                isLoggedIn={setIsLoggedIn}
-                errors={errors}
-                setErrors={setErrors}
-              />
+              <div className="signup">
+                <UserSignUp
+                  setUser={setUser}
+                  isLoggedIn={setIsLoggedIn}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              </div>
             ) : (
-              <UserLogin
-                setUser={setUser}
-                isLoggedIn={setIsLoggedIn}
-                errors={errors}
-                setErrors={setErrors}
-              />
+              <div className="login">
+                <UserLogin
+                  setUser={setUser}
+                  isLoggedIn={setIsLoggedIn}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              </div>
             )}
           </div>
         )}
