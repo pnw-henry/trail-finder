@@ -19,7 +19,6 @@ function Home({ trails }) {
 
   return (
     <div className="home">
-      <h1>Find Your Next Adventure</h1>
       <input
         type="text"
         className="search-bar"

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function UserSignUp({ setUser, isLoggedIn }) {
+function UserSignUp({ setUser, isLoggedIn, toggleSignup, signUp }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -45,48 +45,63 @@ function UserSignUp({ setUser, isLoggedIn }) {
   return (
     <div className="signup-form">
       <form onSubmit={handleNewUserSubmit}>
-        <input
-          type="text"
-          placeholder="Name"
-          autoComplete="off"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <div className="experience-dropdown">
-          <select
-            id="experience"
-            onChange={(e) => setExperience(e.target.value)}
-          >
-            <option value="" disabled selected>
-              Experience
-            </option>
-            <option value="Beginner">Beginner</option>
-            <option value="Intermediate">Intermediate</option>
-            <option value="Expert">Expert</option>
-          </select>
-        </div>
-        <input
-          type="text"
-          placeholder="Username"
-          autoComplete="off"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password Confirmation"
-          autoComplete="current-password"
-          value={passwordConfirmation}
-          onChange={(e) => setPasswordConfirmation(e.target.value)}
-        />
-        <input type="submit" value="Sign Up" />
+        <fieldset>
+          <input
+            type="text"
+            placeholder="Name"
+            autoComplete="off"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </fieldset>
+        <fieldset>
+          <div className="experience-dropdown">
+            <select
+              id="experience"
+              defaultValue={""}
+              onChange={(e) => setExperience(e.target.value)}
+            >
+              <option value="" disabled>
+                Experience
+              </option>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Expert">Expert</option>
+            </select>
+          </div>
+        </fieldset>
+        <fieldset>
+          <input
+            type="text"
+            placeholder="Username"
+            autoComplete="off"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </fieldset>
+        <fieldset>
+          <input
+            type="password"
+            placeholder="Password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </fieldset>
+        <fieldset>
+          <input
+            type="password"
+            placeholder="Password Confirmation"
+            autoComplete="current-password"
+            value={passwordConfirmation}
+            onChange={(e) => setPasswordConfirmation(e.target.value)}
+          />
+        </fieldset>
+
+        <fieldset className="buttons">
+          <input type="submit" value="Sign Up" />
+          <button onClick={toggleSignup}>{signUp ? "Login" : "Sign Up"}</button>
+        </fieldset>
       </form>
       {errors.length > 0 ? (
         <div className="errors">

@@ -34,23 +34,28 @@ function Trails({ trails, setTrails, user }) {
   });
   return (
     <div className="trails">
-      {user && (
-        <button className="new-trail-toggle" onClick={handleFormToggle}>
-          {isFormVisible ? "Hide Form" : "Add New Trail"}
-        </button>
-      )}
+      <header>
+        <section>
+          <h1>All Trails</h1>
+          <DifficultyFilter
+            difficulties={difficulties}
+            selectedDifficulty={selectedDifficulty}
+            onFilterChange={handleFilterChange}
+          />
+        </section>
+        {user && (
+          <button className="new-trail-toggle" onClick={handleFormToggle}>
+            {isFormVisible ? "Hide Form" : "Add New Trail"}
+          </button>
+        )}
+      </header>
+
       {isFormVisible && (
         <NewTrail
           onNewTrailSubmit={handleNewTrailSubmit}
           onFormExpand={setIsFormVisible}
         />
       )}
-      <h1>All Trails</h1>
-      <DifficultyFilter
-        difficulties={difficulties}
-        selectedDifficulty={selectedDifficulty}
-        onFilterChange={handleFilterChange}
-      />
       <TrailList
         trails={sortedTrails}
         expandedTrailId={expandedTrailId}

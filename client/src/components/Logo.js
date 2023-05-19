@@ -13,7 +13,7 @@ function Logo() {
       className="logo"
     >
       <linearGradient id="GradientFill" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="30%" stopColor="#39a9db" />
+        <stop offset="60%" stopColor="#39a9db" />
         <stop offset="80%" stopColor="#2f8d0d" />
       </linearGradient>
       <path

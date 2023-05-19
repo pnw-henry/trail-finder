@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-function UserProfile({ user }) {
+function UserProfile({ user, handleLogout }) {
   return (
     <div>
       {user ? (
@@ -12,6 +12,8 @@ function UserProfile({ user }) {
           <div>
             <strong>Experience:</strong> {user.experience}
           </div>
+
+          <button onClick={handleLogout}>Logout</button>
 
           <h3>Visited Trails</h3>
           {user.trails.length > 0 ? (

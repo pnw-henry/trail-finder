@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Header from "./Header";
-import Navigation from "./Navigation";
 import Home from "./Home";
 import Trails from "./Trails";
 import Visits from "./Visits";
 import UserProfile from "./UserProfile";
-import UserLogin from "./UserLogin";
-import UserSignUp from "./UserSignUp";
+
+import "../App.css";
+import Login from "./Login";
 
 function App() {
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [signUp, setSignUp] = useState(false);
   const [errors, setErrors] = useState([]);
   const [trails, setTrails] = useState([]);
   const [visits, setVisits] = useState([]);
@@ -69,67 +68,52 @@ function App() {
     });
   }
 
-  const toggleSignup = () => {
-    setSignUp(!signUp);
-  };
-
   return (
-    <div>
-      <Navigation />
-      <Header />
-      <div className="login-signup">
-        {isLoggedIn && user ? (
-          <div className="welcome">
-            <h1>Welcome, {user.username}!</h1>
-            <button onClick={handleLogout}>Logout</button>
-          </div>
-        ) : (
-          <div className="login-signup-button">
-            <button onClick={toggleSignup}>
-              {signUp ? "Login" : "Sign Up"}
-            </button>
-            {signUp ? (
-              <div className="signup">
-                <UserSignUp
-                  setUser={setUser}
-                  isLoggedIn={setIsLoggedIn}
-                  errors={errors}
-                  setErrors={setErrors}
-                />
-              </div>
-            ) : (
-              <div className="login">
-                <UserLogin
-                  setUser={setUser}
-                  isLoggedIn={setIsLoggedIn}
-                  errors={errors}
-                  setErrors={setErrors}
-                />
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+    <div className="App">
+      <Header user={user} isLoggedIn={isLoggedIn} />
 
-      <Routes>
-        <Route
-          path="/trails"
-          element={<Trails trails={trails} setTrails={setTrails} user={user} />}
-        ></Route>
-        <Route
-          path="/visits"
-          element={
-            <Visits
-              visits={visits}
-              setVisits={setVisits}
-              trails={trails}
-              user={user}
-            />
-          }
-        ></Route>
-        <Route path="/profile" element={<UserProfile user={user} />}></Route>
-        <Route exact path="/" element={<Home trails={trails} />}></Route>
-      </Routes>
+      <main>
+        <Routes>
+          <Route
+            path="/trails"
+            element={
+              <Trails trails={trails} setTrails={setTrails} user={user} />
+            }
+          ></Route>
+          <Route
+            path="/visits"
+            element={
+              <Visits
+                visits={visits}
+                setVisits={setVisits}
+                trails={trails}
+                user={user}
+              />
+            }
+          ></Route>
+          <Route
+            path="/login"
+            element={
+              <Login
+                user={user}
+                setUser={setUser}
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+                errors={errors}
+                setErrors={setErrors}
+                handleLogout={handleLogout}
+              />
+            }
+          ></Route>
+          user, setUser, isLoggedIn, setIsLoggedIn, errors, setErrors,
+          handleLogout
+          <Route
+            path="/profile"
+            element={<UserProfile user={user} handleLogout={handleLogout} />}
+          ></Route>
+          <Route exact path="/" element={<Home trails={trails} />}></Route>
+        </Routes>
+      </main>
     </div>
   );
 }

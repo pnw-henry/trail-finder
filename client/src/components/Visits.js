@@ -38,9 +38,14 @@ function Visits({ visits, setVisits, trails, user }) {
 
   return (
     <div className="visits">
-      {user !== null && !showNewVisitForm && (
-        <button onClick={handleAddNewVisit}>Add New Visit</button>
-      )}
+      <header>
+        <section>
+          <h1>All Visits</h1>
+        </section>
+        {user !== null && !showNewVisitForm && (
+          <button onClick={handleAddNewVisit}>Add New Visit</button>
+        )}
+      </header>
       {user !== null && showNewVisitForm && (
         <NewVisit
           onNewVisitSubmit={handleNewVisitSubmit}
