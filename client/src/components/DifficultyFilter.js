@@ -7,7 +7,7 @@ function DifficultyFilter({
 }) {
   return (
     <div className="difficulty-filter">
-      <h3>Filter by Difficulty:</h3>
+      {/* <h3>Filter by Difficulty:</h3> */}
       {difficulties.map((difficulty) => (
         <button
           key={difficulty}

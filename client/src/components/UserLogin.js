@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { redirect } from "react-router-dom";
 
-function UserLogin({ setUser, isLoggedIn }) {
+function UserLogin({ setUser, isLoggedIn, toggleSignup, signUp }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
@@ -27,6 +28,8 @@ function UserLogin({ setUser, isLoggedIn }) {
           console.log(user);
           setUser(user);
           isLoggedIn(true);
+
+          redirect("/");
         });
       } else {
         response.json().then((errorData) => {
@@ -53,7 +56,10 @@ function UserLogin({ setUser, isLoggedIn }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input type="submit" value="Login" />
+        <fieldset className="buttons">
+          <input type="submit" value="Login" />
+          <button onClick={toggleSignup}>{signUp ? "Login" : "Sign Up"}</button>
+        </fieldset>
       </form>
       {errors.length > 0 ? (
         <div className="errors">

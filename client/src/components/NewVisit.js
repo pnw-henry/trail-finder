@@ -72,68 +72,74 @@ function NewVisit({ onNewVisitSubmit, onCancelNewVisit, trails, user }) {
   };
 
   return (
-    <form onSubmit={handleNewVisitSubmit}>
-      <label htmlFor="trailSearch">Search Trail:</label>
-      <input
-        type="text"
-        id="trailSearch"
-        value={search}
-        onChange={handleSearchChange}
-        placeholder="Search for a trail..."
-      />
-      <label htmlFor="trail">Trail:</label>
-      <select
-        id="trail"
-        value={selectedTrailId}
-        onChange={handleTrailSelect}
-        required
-      >
-        <option value="" disabled>
-          Select a trail
-        </option>
-        {trailOptions}
-      </select>
-      <br></br>
-      <h2>Date:</h2>
-      <Datetime
-        value={selectedDate}
-        onChange={(e) => {
-          setSelectedDate(e._d);
-          setVisitForm({ ...visitForm, date: e._d });
-        }}
-        initialViewMode="days"
-        timeFormat={false}
-        dateFormat="YYYY-MM-DD"
-        initialViewDate={new Date()}
-        closeOnSelect={true}
-      />
-      <br></br>
-      <select
-        id="condition"
-        onChange={handleVisitChange}
-        value={visitForm.condition}
-      >
-        <option value="" disabled selected>
-          Select a Condition
-        </option>
-        <option value="clear">Clear</option>
-        <option value="overcast">Overcast</option>
-        <option value="rain">Rain</option>
-        <option value="snow">Snow</option>
-        <option value="wind">Wind</option>
-      </select>
-      <textarea
-        type="text"
-        placeholder={isPlaceHolderVisible ? "How was the hike?" : null}
-        value={visitForm.summary}
-        onChange={handleSummaryChange}
-        id="summary"
-      ></textarea>
-      <button type="submit">Add Visit</button>
-      <button type="button" onClick={onCancelNewVisit}>
-        Cancel
-      </button>
-    </form>
+    <div className="new-visit-form">
+      <h2>Add a Visit</h2>
+      <form onSubmit={handleNewVisitSubmit}>
+        <fieldset>
+          <input
+            type="text"
+            id="trailSearch"
+            value={search}
+            onChange={handleSearchChange}
+            placeholder="Search for a trail..."
+          />
+          <select
+            id="trail"
+            value={selectedTrailId}
+            onChange={handleTrailSelect}
+            required
+          >
+            <option value="" disabled>
+              Select a trail
+            </option>
+            {trailOptions}
+          </select>
+        </fieldset>
+        <fieldset>
+          <Datetime
+            value={selectedDate}
+            onChange={(e) => {
+              setSelectedDate(e._d);
+              setVisitForm({ ...visitForm, date: e._d });
+            }}
+            initialViewMode="days"
+            timeFormat={false}
+            dateFormat="YYYY-MM-DD"
+            initialViewDate={new Date()}
+            closeOnSelect={true}
+          />
+          <select
+            id="condition"
+            onChange={handleVisitChange}
+            value={visitForm.condition}
+          >
+            <option value="" disabled selected>
+              Select a Condition
+            </option>
+            <option value="clear">Clear</option>
+            <option value="overcast">Overcast</option>
+            <option value="rain">Rain</option>
+            <option value="snow">Snow</option>
+            <option value="wind">Wind</option>
+          </select>
+        </fieldset>
+        <fieldset>
+          <textarea
+            type="text"
+            placeholder={isPlaceHolderVisible ? "How was the hike?" : null}
+            value={visitForm.summary}
+            onChange={handleSummaryChange}
+            id="summary"
+          ></textarea>
+        </fieldset>
+        <fieldset>
+          <button type="submit">Add Visit</button>
+          <button type="button" onClick={onCancelNewVisit}>
+            Cancel
+          </button>
+        </fieldset>
+      </form>
+    </div>
   );
 }
 
