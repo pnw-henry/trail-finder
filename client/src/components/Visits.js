@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import VisitList from "./VisitList";
 import NewVisit from "./NewVisit";
 
-function Visits({ visits, trails, user }) {
-  const [visitList, setVisitList] = useState(visits);
+function Visits({ visits, setVisits, trails, user }) {
   const [showNewVisitForm, setShowNewVisitForm] = useState(false);
 
   const handleAddNewVisit = () => {
@@ -15,31 +14,27 @@ function Visits({ visits, trails, user }) {
   };
 
   const handleNewVisitSubmit = (newVisit) => {
-    setVisitList([...visitList, newVisit]);
+    setVisits([...visits, newVisit]);
     setShowNewVisitForm(false);
-    console.log("newvisit", newVisit);
   };
 
   const handleEditVisit = (editedVisit) => {
-    const updatedVisitList = visitList.map((visit) => {
+    const updatedVisitList = visits.map((visit) => {
       if (visit.id === editedVisit.id) {
         return editedVisit;
       } else {
         return visit;
       }
     });
-    setVisitList([...updatedVisitList]);
-    console.log("edited visits in handleeditvisit", updatedVisitList);
+    setVisits([...updatedVisitList]);
   };
 
   const handleDeleteVisit = (visitId) => {
-    const updatedVisitList = visitList.filter((visit) => {
+    const updatedVisitList = visits.filter((visit) => {
       return visit.id !== visitId;
     });
-    setVisitList(updatedVisitList);
+    setVisits(updatedVisitList);
   };
-
-  console.log("visits", visits);
 
   return (
     <div className="visits">
@@ -55,7 +50,7 @@ function Visits({ visits, trails, user }) {
         />
       )}
       <VisitList
-        visits={visitList}
+        visits={visits}
         onEditVisit={handleEditVisit}
         onDeleteVisit={handleDeleteVisit}
         user={user}

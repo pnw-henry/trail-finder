@@ -96,7 +96,7 @@ function VisitCard({ visit, onEditVisit, onDeleteVisit, user }) {
               ))}
             </div>
           ) : (
-            <div>
+            <div className="visit-card-summary">
               <p>{summary}</p>
               {user !== null && user.id === visit.user_id && (
                 <div>

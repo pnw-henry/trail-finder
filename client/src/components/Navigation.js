@@ -2,8 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 function Navigation() {
   return (
-    <div className="nav=bar">
-      <div className="nagivation">
+    <div className="nav-bar">
+      <div>
         <NavLink
           to="/"
           className={(isActive) =>
@@ -18,7 +18,7 @@ function Navigation() {
             "nav-link" + (!isActive ? " unselected" : "")
           }
         >
-          Trails
+          All Trails
         </NavLink>
         <NavLink
           to="/visits"
@@ -26,7 +26,7 @@ function Navigation() {
             "nav-link" + (!isActive ? " unselected" : "")
           }
         >
-          Visits
+          Hiking Visits
         </NavLink>
         <NavLink
           to="/profile"

@@ -3,7 +3,9 @@ function Header() {
   return (
     <header>
       <Logo />
-      <h1>Treasured Trails</h1>
+      <div className="title">
+        <h1>Treasured Trails</h1>
+      </div>
     </header>
   );
 }

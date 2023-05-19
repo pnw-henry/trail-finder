@@ -12,7 +12,7 @@ function VisitList({ visits, onEditVisit, onDeleteVisit, user }) {
       />
     );
   });
-  return <div>{visit}</div>;
+  return <div className="all-visits">{visit}</div>;
 }
 
 export default VisitList;

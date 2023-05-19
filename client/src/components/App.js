@@ -74,7 +74,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div>
       <Navigation />
       <Header />
       <div className="login-signup">
@@ -110,14 +110,21 @@ function App() {
       <Routes>
         <Route
           path="/trails"
-          element={<Trails trails={trails} user={user} />}
+          element={<Trails trails={trails} setTrails={setTrails} user={user} />}
         ></Route>
         <Route
           path="/visits"
-          element={<Visits visits={visits} trails={trails} user={user} />}
+          element={
+            <Visits
+              visits={visits}
+              setVisits={setVisits}
+              trails={trails}
+              user={user}
+            />
+          }
         ></Route>
         <Route path="/profile" element={<UserProfile user={user} />}></Route>
-        <Route exact path="/" element={<Home />}></Route>
+        <Route exact path="/" element={<Home trails={trails} />}></Route>
       </Routes>
     </div>
   );

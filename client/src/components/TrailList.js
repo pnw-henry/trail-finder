@@ -12,7 +12,7 @@ function TrailList({ trails, expandedTrailId, onTrailClick }) {
     );
   });
 
-  return <div>{trail}</div>;
+  return <div className="trail-cards">{trail}</div>;
 }
 
 export default TrailList;

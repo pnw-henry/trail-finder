@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import DifficultyFilter from "./DifficultyFilter";
 import TrailList from "./TrailList";
 import NewTrail from "./NewTrail";
-function Trails({ trails, user }) {
-  const [trailList, setTrailList] = useState(trails);
+function Trails({ trails, setTrails, user }) {
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
   const [expandedTrailId, setExpandedTrailId] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -23,18 +22,18 @@ function Trails({ trails, user }) {
   };
 
   const filteredTrails = selectedDifficulty
-    ? trailList.filter((trail) => trail.difficulty === selectedDifficulty)
-    : trailList;
+    ? trails.filter((trail) => trail.difficulty === selectedDifficulty)
+    : trails;
 
   const handleNewTrailSubmit = (newTrail) => {
-    setTrailList([newTrail, ...trailList]);
+    setTrails([newTrail, ...trails]);
   };
 
   const sortedTrails = filteredTrails.sort((a, b) => {
     return a.name.localeCompare(b.name);
   });
   return (
-    <div>
+    <div className="trails">
       {user && (
         <button className="new-trail-toggle" onClick={handleFormToggle}>
           {isFormVisible ? "Hide Form" : "Add New Trail"}
@@ -46,7 +45,7 @@ function Trails({ trails, user }) {
           onFormExpand={setIsFormVisible}
         />
       )}
-      <h1>Trails</h1>
+      <h1>All Trails</h1>
       <DifficultyFilter
         difficulties={difficulties}
         selectedDifficulty={selectedDifficulty}
