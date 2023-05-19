@@ -8,6 +8,7 @@ function NewVisit({ onNewVisitSubmit, onCancelNewVisit, trails, user }) {
   const [filteredTrails, setFilteredTrails] = useState(trails);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isPlaceHolderVisible, setIsPlaceHolderVisible] = useState(true);
+  const [errors, setErrors] = useState([]);
   const [visitForm, setVisitForm] = useState({
     date: "",
     condition: "",
@@ -66,6 +67,7 @@ function NewVisit({ onNewVisitSubmit, onCancelNewVisit, trails, user }) {
       } else {
         response.json().then((errorData) => {
           console.log(errorData);
+          setErrors(errorData.errors);
         });
       }
     });
@@ -139,6 +141,13 @@ function NewVisit({ onNewVisitSubmit, onCancelNewVisit, trails, user }) {
           </button>
         </fieldset>
       </form>
+      {errors.length > 0 ? (
+        <ul>
+          {errors.map((error) => (
+            <li key={error}>{error}</li>
+          ))}
+        </ul>
+      ) : null}
     </div>
   );
 }

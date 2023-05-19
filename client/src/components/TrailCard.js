@@ -1,4 +1,5 @@
 import React from "react";
+
 function TrailCard({ trail, expandedTrailId, onTrailClick }) {
   const { name, location, difficulty, length, elevation_gain, highest_point } =
     trail;

@@ -26,15 +26,26 @@ class VisitsController < ApplicationController
     end
 
     def update
-        visit = find_visit
-        visit.update!(visit_params)
-        render json: visit, include: [:trail, :user]
+        user = find_user
+        visit = user.visits.find(params[:id])
+        if (user.id != visit.user_id)
+            return render json: {error: "You are not authorized to edit this visit"}, status: :unauthorized
+        else
+            visit.update!(visit_params)
+            render json: visit, status: :ok
+        end
     end
 
     def destroy
-        visit = find_visit
-        visit.destroy
-        render json: {}
+        user = find_user
+        visit = user.visits.find(params[:id])
+        if (user.id != visit.user_id)
+            return render json: {error: "You are not authorized to delete this visit"}, status: :unauthorized
+        else
+            visit.destroy
+            head :no_content
+            render json: {}
+        end
 
     end
 

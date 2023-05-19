@@ -5,9 +5,10 @@ import Home from "./Home";
 import Trails from "./Trails";
 import Visits from "./Visits";
 import UserProfile from "./UserProfile";
+import Login from "./Login";
 
 import "../App.css";
-import Login from "./Login";
+import { UserContext } from "./UserContext";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -69,52 +70,40 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Header user={user} isLoggedIn={isLoggedIn} />
-
-      <main>
-        <Routes>
-          <Route
-            path="/trails"
-            element={
-              <Trails trails={trails} setTrails={setTrails} user={user} />
-            }
-          ></Route>
-          <Route
-            path="/visits"
-            element={
-              <Visits
-                visits={visits}
-                setVisits={setVisits}
-                trails={trails}
-                user={user}
-              />
-            }
-          ></Route>
-          <Route
-            path="/login"
-            element={
-              <Login
-                user={user}
-                setUser={setUser}
-                isLoggedIn={isLoggedIn}
-                setIsLoggedIn={setIsLoggedIn}
-                errors={errors}
-                setErrors={setErrors}
-                handleLogout={handleLogout}
-              />
-            }
-          ></Route>
-          user, setUser, isLoggedIn, setIsLoggedIn, errors, setErrors,
-          handleLogout
-          <Route
-            path="/profile"
-            element={<UserProfile user={user} handleLogout={handleLogout} />}
-          ></Route>
-          <Route exact path="/" element={<Home trails={trails} />}></Route>
-        </Routes>
-      </main>
-    </div>
+    <UserContext.Provider value={{ user, setUser, isLoggedIn, setIsLoggedIn }}>
+      <div className="App">
+        <Header />
+        <main>
+          <Routes>
+            <Route
+              path="/trails"
+              element={<Trails trails={trails} setTrails={setTrails} />}
+            ></Route>
+            <Route
+              path="/visits"
+              element={
+                <Visits visits={visits} setVisits={setVisits} trails={trails} />
+              }
+            ></Route>
+            <Route
+              path="/login"
+              element={
+                <Login
+                  errors={errors}
+                  setErrors={setErrors}
+                  handleLogout={handleLogout}
+                />
+              }
+            ></Route>
+            <Route
+              path="/profile"
+              element={<UserProfile handleLogout={handleLogout} />}
+            ></Route>
+            <Route exact path="/" element={<Home trails={trails} />}></Route>
+          </Routes>
+        </main>
+      </div>
+    </UserContext.Provider>
   );
 }
 

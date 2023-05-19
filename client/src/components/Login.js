@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import UserLogin from "./UserLogin";
 import UserSignUp from "./UserSignUp";
+import { useContext } from "react";
+import { UserContext } from "./UserContext";
 
-function Login({
-  user,
-  setUser,
-  isLoggedIn,
-  setIsLoggedIn,
-  errors,
-  setErrors,
-  handleLogout,
-}) {
+function Login({ errors, setErrors, handleLogout }) {
+  const { user, isLoggedIn } = useContext(UserContext);
+
   const [signUp, setSignUp] = useState(false);
 
   const toggleSignup = () => {
@@ -29,8 +25,6 @@ function Login({
           {signUp ? (
             <div className="signup">
               <UserSignUp
-                setUser={setUser}
-                isLoggedIn={setIsLoggedIn}
                 errors={errors}
                 setErrors={setErrors}
                 toggleSignup={toggleSignup}
@@ -40,8 +34,6 @@ function Login({
           ) : (
             <div className="login">
               <UserLogin
-                setUser={setUser}
-                isLoggedIn={setIsLoggedIn}
                 errors={errors}
                 setErrors={setErrors}
                 toggleSignup={toggleSignup}

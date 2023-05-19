@@ -1,12 +1,16 @@
 import React, { useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "./UserContext";
 
-function UserSignUp({ setUser, isLoggedIn, toggleSignup, signUp }) {
+function UserSignUp({ toggleSignup, signUp }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [experience, setExperience] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [errors, setErrors] = useState([]);
+
+  const { setUser, setIsLoggedIn } = useContext(UserContext);
 
   const signupApi = "/users";
 
@@ -31,7 +35,7 @@ function UserSignUp({ setUser, isLoggedIn, toggleSignup, signUp }) {
       if (response.ok) {
         response.json().then((user) => {
           console.log(user);
-          isLoggedIn(true);
+          setIsLoggedIn(true);
           setUser(user);
         });
       } else {

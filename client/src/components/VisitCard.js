@@ -98,6 +98,7 @@ function VisitCard({ visit, onEditVisit, onDeleteVisit, user }) {
           ) : (
             <div className="visit-card-summary">
               <p>{summary}</p>
+              <p>By {visit.user.username}</p>
               {user !== null && user.id === visit.user_id && (
                 <div>
                   <button onClick={handleEditClick}>Edit Summary</button>

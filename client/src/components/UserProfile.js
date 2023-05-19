@@ -1,17 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
-function UserProfile({ user, handleLogout }) {
+import { UserContext } from "./UserContext";
+import { useContext } from "react";
+
+function UserProfile({ handleLogout }) {
+  const { user } = useContext(UserContext);
   return (
     <div>
       {user ? (
         <div className="user-profile">
-          <h2>Hiking Profile</h2>
-          <div>
-            <strong>Name:</strong> {user.name}
-          </div>
-          <div>
-            <strong>Experience:</strong> {user.experience}
-          </div>
+          <section>
+            <h2>Hiking Profile</h2>
+            <div>
+              <strong>Name:</strong> {user.name}
+            </div>
+            <div>
+              <strong>Experience:</strong> {user.experience}
+            </div>
+          </section>
 
           <button onClick={handleLogout}>Logout</button>
 

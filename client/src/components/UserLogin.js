@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "./UserContext";
 
-function UserLogin({ setUser, isLoggedIn, toggleSignup, signUp }) {
+function UserLogin({ toggleSignup, signUp }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const navigate = useNavigate();
+
+  const { setUser, setIsLoggedIn } = useContext(UserContext);
 
   const loginApi = "/login";
 
@@ -27,9 +32,8 @@ function UserLogin({ setUser, isLoggedIn, toggleSignup, signUp }) {
         response.json().then((user) => {
           console.log(user);
           setUser(user);
-          isLoggedIn(true);
-
-          redirect("/");
+          setIsLoggedIn(true);
+          navigate("/");
         });
       } else {
         response.json().then((errorData) => {

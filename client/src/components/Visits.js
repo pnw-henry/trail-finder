@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import VisitList from "./VisitList";
 import NewVisit from "./NewVisit";
+import { useContext } from "react";
+import { UserContext } from "./UserContext";
 
-function Visits({ visits, setVisits, trails, user }) {
+function Visits({ visits, setVisits, trails }) {
   const [showNewVisitForm, setShowNewVisitForm] = useState(false);
+
+  const { user } = useContext(UserContext);
 
   const handleAddNewVisit = () => {
     setShowNewVisitForm(true);

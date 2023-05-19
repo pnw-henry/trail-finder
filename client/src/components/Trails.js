@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import DifficultyFilter from "./DifficultyFilter";
 import TrailList from "./TrailList";
 import NewTrail from "./NewTrail";
-function Trails({ trails, setTrails, user }) {
+import { useContext } from "react";
+import { UserContext } from "./UserContext";
+function Trails({ trails, setTrails }) {
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
   const [expandedTrailId, setExpandedTrailId] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
+
   const difficulties = ["Easy", "Moderate", "Hard"];
+
+  const { user } = useContext(UserContext);
 
   const handleFilterChange = (difficulty) => {
     setSelectedDifficulty(difficulty);

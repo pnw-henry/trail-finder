@@ -1,9 +1,12 @@
 import Logo from "./Logo";
-
+import { useContext } from "react";
+import { UserContext } from "./UserContext";
 import { NavLink } from "react-router-dom";
 import Navigation from "./Navigation";
 
-function Header({ user, isLoggedIn }) {
+function Header() {
+  const { user, isLoggedIn } = useContext(UserContext);
+
   return (
     <header>
       <NavLink to="/">
