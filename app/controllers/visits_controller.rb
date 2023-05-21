@@ -48,6 +48,26 @@ class VisitsController < ApplicationController
         end
 
     end
+    
+    # Practice
+
+    def search
+        date = params[:query]
+        visits = Visit.where("date = ?", date)
+        render json: visits
+    end
+
+    def search_in_summary
+        term = params[:term]
+        visits = Visit.where("summary iLIKE ?", "%#{term}%")
+        render json: visits
+    end
+
+    def find_visits_by_user
+        user = User.find_by(username: params[:username])
+        visits = user.visits
+        render json: visits
+    end
 
     private
 
