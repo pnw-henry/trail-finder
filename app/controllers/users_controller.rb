@@ -21,24 +21,6 @@ class UsersController < ApplicationController
         render json: {}
     end
 
-    # Practice
-
-    def search
-        query = params[:query]
-        user = User.where(username: query)
-        render json: user
-    end
-
-    def search_by_experience
-        query = params[:query]
-        users = User.all.select{|user| user.experience === query.to_s}
-        render json: users
-    end
-
-    def find_users_with_visits
-        users = User.all.select{|user| user.visits.length > 0}
-        render json: users
-    end
 
     private
 

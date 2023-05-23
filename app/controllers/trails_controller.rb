@@ -19,24 +19,6 @@ class TrailsController < ApplicationController
         render json: trail
     end
 
-    # Practice
-
-    def search
-        query = params[:query]
-        trails = Trail.where("name iLIKE ?", "%#{query}%")
-        render json: trails
-    end
-
-    def search_by_elevation
-        elevation = params[:query]
-        trails = Trail.where("elevation_gain > ?", elevation).sort_by{|trail| trail.elevation_gain}
-        render json: trails
-    end
-
-    def find_trails_with_visits
-        trails = Trail.all.select{|trail| trail.visits.length > 0}
-        render json: trails
-    end
 
     private
 
